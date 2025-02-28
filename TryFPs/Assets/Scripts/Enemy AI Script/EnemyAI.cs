@@ -19,6 +19,13 @@ public class EnemyAI : MonoBehaviour
     public Vector3 rayCastOffset;
     public string deathScene;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+    }
+
     void Start()
     {
         walking = true;
@@ -99,6 +106,7 @@ public class EnemyAI : MonoBehaviour
     }
     IEnumerator deathRoutine()
     {
+        audioManager.PlaySFX(audioManager.jumpScare);
         yield return new WaitForSeconds(jumpscareTime);
         SceneManager.LoadScene(deathScene);
     }
